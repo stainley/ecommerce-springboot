@@ -1,11 +1,84 @@
 version: '3'
 
 services:
-  ecommerce-auth:
-    container_name: ecommerce-auth
+  # AUTHENTICATION SERVICE
+  auth-service:
+    container_name: auth-service
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://auth-db:5432/auth_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres_password
+    depends_on:
+      - auth-db
 
 
+    networks:
+      - ecommerce-network
 
+
+  auth-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password
+      POSTGRES_DB: auth_db
+    ports:
+      - "5432:5432"
+    networks:
+      - ecommerce-network
+
+  # PRODUCT SERVICE
+  product-service:
+    build:
+      context: ./product
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://product-db:5432/product_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres_password
+    depends_on:
+      - product-db
+
+
+  product-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password
+      POSTGRES_DB: product_db
+    ports:
+      - "5432:5432"
+
+  # Inventory Service
+  inventory-service:
+    build:
+      context: ./inventory
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://inventory-db:5432/inventory_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres_password
+    depends_on:
+      - inventory-db
+
+  # Inventory DB
+  inventory-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password
+      POSTGRES_DB: inventory_db
+    ports:
+      - "5432:5432"
+
+    # NETWORK
 networks:
   ecommerce-network:
     driver: bridge
