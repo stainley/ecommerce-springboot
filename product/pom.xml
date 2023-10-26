@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.salapp</groupId>
     <artifactId>product</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>product</name>
     <description>product</description>
     <properties>

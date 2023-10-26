@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  ecommerce-auth:
+    container_name: ecommerce-auth
+
+
+
+networks:
+  ecommerce-network:
+    driver: bridge
