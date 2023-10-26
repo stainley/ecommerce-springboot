@@ -4,14 +4,12 @@
     <execution />
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="KubernetesApiPersistence">
-    <option name="context" value="docker-desktop" />
-  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/auth/pom.xml" />
         <option value="$PROJECT_DIR$/product/pom.xml" />
+        <option value="$PROJECT_DIR$/inventory/pom.xml" />
       </list>
     </option>
   </component>
